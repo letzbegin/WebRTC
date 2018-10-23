@@ -1,36 +1,40 @@
 출처 : https://codelabs.developers.google.com/codelabs/webrtc-web/#8
 
-9 . 사진을 찍어 데이터 채널을 통해 공유하십시오.
+# 9 . 사진을 찍어 데이터 채널을 통해 공유하기.
 
-배우게 될 것
-이 단계에서는 다음과 같은 방법을 배우게됩니다.
+__배우게 될 것__
+이번 단계에서는 다음과 같은 방법을 배우게됩니다.
 
-canvas 요소를 사용하여 사진을 찍은 다음 그 사진에서 데이터를 가져옵니다.
-원격 사용자와 이미지 데이터 교환.
-이 단계의 전체 버전은 step-06 폴더에 있습니다.
+  canvas 요소를 사용하여 사진을 찍은 다음 그 사진에서 데이터를 가져오기.
+  원격 사용자와 이미지 데이터 교환.
 
-작동 원리
+이 단계의 완성 버전은 __step-06__ 폴더에 있습니다.
+
+__작동 원리__
+
 이전에는 RTCDataChannel을 사용하여 문자 메시지를 교환하는 방법을 배웠습니다.
 
-이 단계에서는 전체 파일을 공유 할 수 있습니다.이 예제에서는을 (를) 통해 캡처 한 사진 getUserMedia()입니다.
+이번 단계에서는 전체 파일을 공유 해봅니다.( 예 :  `getUserMedia()`통해 캡처 한 사진)
 
 이 단계의 핵심 부분은 다음과 같습니다.
+  1.데이터 채널을 설정합니다. (이번 단계에서는 피어 연결에 미디어 스트림을 추가하지 않습니다.)</li>
+  2.`getUserMedia()`를 이용하여 사용자의 웹캠 비디오 스트림을 캡처합니다 .
+  ~~~
+  var video = document.getElementById('video');
 
-데이터 채널을 설정하십시오. 이 단계에서는 피어 연결에 미디어 스트림을 추가하지 않습니다.
-다음을 사용하여 사용자의 웹캠 비디오 스트림을 캡처하십시오 getUserMedia().
-var video = document.getElementById('video');
-
-function grabWebCamVideo() {
-  console.log('Getting user media (video) ...');
-  navigator.mediaDevices.getUserMedia({
-    video: true
-  })
-  .then(gotStream)
-  .catch(function(e) {
-    alert('getUserMedia() error: ' + e.name);
-  });
-}
-사용자가 스냅 버튼을 클릭하면 비디오 스트림에서 스냅 샷 (비디오 프레임)을 가져 와서 canvas요소에 표시합니다 .
+  function grabWebCamVideo() {
+    console.log('Getting user media (video) ...');
+    navigator.mediaDevices.getUserMedia({
+      video: true
+    })
+    .then(gotStream)
+    .catch(function(e) {
+      alert('getUserMedia() error: ' + e.name);
+    });
+  }
+  ~~~
+  3.사용자가 __sanp__ 버튼을 클릭하면 비디오 스트림에서 스냅 샷(비디오 프레임)을 가져 와서 `canvas`요소에 표시합니다 .
+  ~~~
 var photo = document.getElementById('photo');
 var photoContext = photo.getContext('2d');
 
@@ -38,7 +42,9 @@ function snapPhoto() {
   photoContext.drawImage(video, 0, 0, photo.width, photo.height);
   show(photo, sendBtn);
 }
-사용자가 보내기 버튼을 클릭하면 이미지를 바이트로 변환하고 데이터 채널을 통해 전송합니다.
+~~~
+4.사용자가 __send__ 버튼을 클릭하면 이미지를 바이트로 변환하고 데이터 채널을 통해 전송합니다.
+~~~
 function sendPhoto() {
   // Split data channel message in chunks of this byte length.
   var CHUNK_LEN = 64000;
@@ -63,7 +69,9 @@ function sendPhoto() {
     dataChannel.send(img.data.subarray(n * CHUNK_LEN));
   }
 }
-수신 측은 데이터 채널 메시지 바이트를 이미지로 다시 변환하여 이미지를 사용자에게 표시합니다.
+~~~
+5.수신 측은 데이터 채널 메시지 바이트를 이미지로 다시 변환하여 이미지를 사용자에게 표시합니다.
+~~~
 function receiveDataChromeFactory() {
   var buf, count;
 
@@ -102,9 +110,12 @@ function renderPhoto(data) {
   img.data.set(data);
   context.putImageData(img, 0, 0);
 }
-코드 가져 오기
-작업 폴더의 내용을 단계 06 의 내용으로 바꿉니다 . 귀하 있는 index.html 에서 파일 작업은 이제 다음과 같아야합니다 :
+~~~
 
+__코드 가져 오기__
+
+__work__ 폴더의 내용을 __step-06__ 의 내용으로 바꿉니다. 그리고 index.html을 다음과 변경합니다 :
+~~~
 <!DOCTYPE html>
 <html>
 
@@ -147,30 +158,44 @@ function renderPhoto(data) {
 </body>
 
 </html>
-작업 디렉토리 에서이 코드 랩을 따르지 않을 경우 , step-06 폴더 또는 현재 작업 폴더에 대한 종속성을 설치해야 할 수도 있습니다 . 작업 디렉토리에서 다음 명령을 실행하기 만하면됩니다.
+~~~
 
+만약 코드 랩처럼 정상적으로 작동 하지 않을경우 , __step-06__ 폴더 또는 현재 작업 폴더에 대한 의존성을 설치해야 할 수도 있습니다.
+작업 디렉토리에서 다음 명령을 실행하기 만하면됩니다.
+~~~
 npm install
-일단 설치되면 Node.js 서버가 실행되고 있지 않으면 작업 디렉토리 에서 다음 명령을 호출하여 시작하십시오 .
-
+~~~
+설치후 Node.js 서버가 실행되고 있지 않으면 __work__ 디렉토리 에서 다음 명령을 호출하여 시작하세요.
+~~~
 node index.js
-Socket.IO를 구현 하는 index.js 버전을 사용하고 있는지 확인 하고 변경 한 경우 Node.js 서버를 다시 시작하십시오. 노드 및 소켓 IO에 대한 자세한 내용은 "메시지 교환을위한 신호 서비스 설정"절을 검토하십시오.
+~~~
 
-필요한 경우 허용 버튼을 클릭 하면 앱이 웹캠을 사용할 수 있습니다.
+Socket.IO를 구현 하는 index.js버전을 사용하고 있는지 확인 하고 변경 한 경우 Node.js 서버를 다시 시작하십시오.
+노드 및 소켓 IO에 대한 자세한 내용은 "메시지 교환을위한 신호 서비스 설정"절을 검토하세요.
 
-앱에서 임의의 회의실 ID를 만들고 해당 ID를 URL에 추가합니다. 새 브라우저 탭 또는 창에서 검색 주소창의 URL을 엽니 다.
+웹캡에 대한 권한이 필요한 경우, 허용 버튼을 클릭 하면 앱이 웹캠을 사용할 수 있습니다.
 
-클릭 스냅 및 보내기 버튼을 누른 다음 페이지의 맨 아래에있는 다른 탭의 수신 영역을 확인합니다. 앱이 탭간에 사진을 전송합니다.
+앱에서 임의의 회의실 ID를 만들고 해당 ID를 URL에 추가한 후, 새 브라우저 탭 또는 창에서 검색 주소창의 URL을 엽니다.
 
-다음과 같은 내용을보아야합니다.
+__sanp__ 및 __send__ 버튼을 누른 다음 페이지의 맨 아래에있는 다른 탭의 수신 영역을 확인합니다. 앱이 탭간에 사진을 전송합니다.
 
+다음과 같은 내용을 보여야 합니다.
+<br/>
+<image src="https://codelabs.developers.google.com/codelabs/webrtc-web/img/911b40f36ba6ba8.png"/>
+<br/>
+<br/>
 
+# 보너스 포인트
+  파일 형식을 공유 할 수 있도록 코드를 어떻게 바꿀 수 있을까요?
+  
+__심화학습__
 
-보너스 포인트
-파일 형식을 공유 할 수 있도록 코드를 어떻게 바꿀 수 있습니까?
-더 찾아 봐
-MediaStream Image Capture API : 사진을 찍고 카메라를 제어하는 ​​API - 가까운 브라우저에서 곧 사용할 수 있습니다!
-오디오 및 비디오 녹음을위한 MediaRecorder API : 데모 , 설명서 .
-배운 내용
-캔버스 요소를 사용하여 사진을 찍어서 데이터를 가져 오는 방법.
-해당 데이터를 원격 사용자와 교환하는 방법.
-이 단계의 전체 버전은 step-06 폴더에 있습니다.
+<ul>
+  <li><a href="https://www.chromestatus.com/features/4843864737185792">MediaStream Image Capture API </a>: 사진을 찍고 카메라를 제어하는 API - 곧 사용할 수 있습니다!<li>
+  <li>오디오 및 비디오 녹음을위한 MediaRecorder API : <a href="https://webrtc.github.io/samples/src/content/getusermedia/record/">데모</a>,<a href="https://www.chromestatus.com/features/5929649028726784"> 설명서</a>
+<ul>
+__배운 내용__
+  캔버스 요소를 사용하여 사진을 찍어서 데이터를 가져 오는 방법.
+  해당 데이터를 원격 사용자와 교환하는 방법.
+    
+이 단계의 전체 버전은 __step-06__ 폴더에 있습니다.

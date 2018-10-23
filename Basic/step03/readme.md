@@ -1,6 +1,6 @@
 출처 : https://codelabs.developers.google.com/codelabs/webrtc-web/#2
 
-#3 . 샘플 코드 얻기
+# 3 . 샘플 코드 얻기
 
 __코드 다운로드하기__
 

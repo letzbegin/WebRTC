@@ -3,6 +3,7 @@
 # 5 . RTCPeerConnection을 사용하여 비디오 스트리밍
 
 __배우게 될 것__
+
   WebRTC shim, adapter.js간의 차이점을 추상화(구체화)합니다 .
   RTCPeerConnection API를 사용하여 비디오를 스트리밍합니다.
   미디어 캡처 및 스트리밍을 제어합니다.
@@ -10,12 +11,14 @@ __배우게 될 것__
 이 단계의 완성본은 2 단계 폴더에 있습니다.
 
 __RTCPeerConnection이란 무엇입니까?__
+
 RTCPeerConnection은 비디오 및 오디오를 스트리밍하고 데이터를 교환하기 위해 WebRTC 호출을 수행하는 API입니다.
 
 이 예제는 동일한 페이지에서 두 개의 RTCPeerConnection 객체 (피어라고도 함) 사이의 연결을 설정합니다.
 실용적이지는 않지만 RTCPeerConnection의 작동 방식을 이해하는 데 좋습니다.
 
 __비디오 요소 및 컨트롤 버튼 추가__
+
 index.html에서는 두 개의 비디오 요소와 세 개의 버튼가진 단일 비디오 요소를 이용합니다:
 
 ~~~
@@ -32,6 +35,7 @@ index.html에서는 두 개의 비디오 요소와 세 개의 버튼가진 단�
 하나의 동영상 요소(창)는 `getUserMedia()`으로 받은 스트림을 표시하고 다른 동영상 요소(창)는 RTCPeerconnection을 통해 스트리밍 된 동일한 동영상을 표시합니다. 실제 응용 프로그램에서는 한 비디오 요소가 로컬 스트림과 다른 원격 스트림을 표시합니다.
 
 __adapter.js 심 추가__
+
 main.js 링크 위 의 adapter.js 의 현재 버전에 대한 링크를 추가해봅시다.
 ~~~
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
@@ -73,6 +77,7 @@ Index.html를 다음같이 변경 합니다.
 </html>
 ~~~
 __RTCPeerConnection 코드를 설치하십시오.__
+
 main.js 를 step-02 폴더 의 버전으로 바꿉니다 .
 
 ---
@@ -81,10 +86,12 @@ codelab에 많은 코드 덩어리를 잘라붙이기를하는 것은 이상적�
 
 ---
 __호출 하기__
+
 index.html을 열고 시작 버튼을 클릭 하여 웹캠에서 비디오를 가져오고 call을 클릭 하여 피어 연결을 만듭니다.
 두 비디오 요소 모두에서 동일한 비디오 (웹캡화면)가 표시되어야합니다. WebRTC 로깅을 보려면 브라우저 콘솔을보십시오.
 
 __작동 원리__
+
 아래의 step의 양은 상당합니다. 때문에,,,
 
 ---
@@ -227,6 +234,7 @@ function createdAnswer(description) {
 6.테스트!
 
 __보너스 포인트__
+
   1.chrome : // webrtc-internals를 살펴보세요.
   WebRTC 통계 및 디버깅 데이터를 제공합니다. Chrome URL의 전체 목록은 chrome : // about 입니다.
   2.CSS로 페이지 스타일 지정 :
@@ -237,6 +245,7 @@ __보너스 포인트__
   콘솔에서보세요 localPeerConnectionpc1.localDescription. SDP 형식은 어떤 모습입니까?
 
 __배운 내용__
+
   이 단계에서는 다음을 수행하는 방법을 배웠습니다.
 
   WebRTC shim, adapter.js 와의 브라우저 차이점을 추상화합니다 .
@@ -247,11 +256,13 @@ __배운 내용__
   이 단계의 완성 버전은 2 단계 폴더에 있습니다.
 
   __팁__
+  
   이 단계에서 배울 점이 많습니다! RTCPeerConnection을 자세히 설명하는 다른 리소스를 찾으려면 webrtc.org/start를 살펴 보십시오 . 이 페이지에는 JavaScript 프레임 워크에 대한 제안이 포함되어 있습니다. WebRTC를 사용하고 싶지만 API를 논쟁하고 싶지 않은 경우
   adapter.js GitHub 레포 에서 adapter.js 심에 대해 자세히 알아보십시오 .
   세계 최고의 비디오 채팅 앱이 어떻게 생겼는지보고 싶으십니까? AppRTC, WebRTC 프로젝트의 WebRTC 호출을위한 표준 애플리케이션 : app , code를 살펴보십시오 . 통화 설정 시간이 500ms 미만입니다.
 
 __우수 사례__
+
   코드를 미래 보장하려면 새로운 Promise 기반 API를 사용하고 adapter.js 를 사용하여 지원하지 않는 브라우저와의 호환성을 활성화하십시오 .
   
   이 단계에서는 WebRTC를 사용하여 피어간에 비디오를 스트리밍하는 방법을 보여줍니다. 그러나 이 코드 랩은 데이터에 관한 것입니다!

@@ -194,8 +194,9 @@ __심화학습__
 <ul>
   <li><a href="https://www.chromestatus.com/features/4843864737185792">MediaStream Image Capture API </a>: 사진을 찍고 카메라를 제어하는 API - 곧 사용할 수 있습니다!</li>
   <li>오디오 및 비디오 녹음을위한 MediaRecorder API : <a href="https://webrtc.github.io/samples/src/content/getusermedia/record/">데모</a>,<a href="https://www.chromestatus.com/features/5929649028726784"> 설명서</a></li>
-<ul>
+</ul>
 __배운 내용__
+
   캔버스 요소를 사용하여 사진을 찍어서 데이터를 가져 오는 방법.
   해당 데이터를 원격 사용자와 교환하는 방법.
     

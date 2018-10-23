@@ -131,6 +131,7 @@ RTCDataChannel의 구문은 WebSocket과 의도적으로 비슷한 구조로 만
 `dataConstraint`의 사용방법. 
 데이터 채널은 다양한 유형의 데이터 공유가 가능하도록 구성 할 수 있습니다 (예 : 성능 대비 안정적인 전달의 우선 순위 지정).
 Mozilla Developer Network 에서 옵션에 대한 자세한 정보를 찾을 수 있습니다.
+
 ---
 
 세 가지 종류의 제약 조건

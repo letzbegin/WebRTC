@@ -4,15 +4,17 @@
 
 __배우게 될 것__
 
-WebRTC 엔드 포인트 (피어)간에 데이터를 교환하는 방법.
-이 단계의 전체 버전은 step-03 폴더에 있습니다.
+    WebRTC 엔드 포인트 (피어)간에 데이터를 교환하는 방법.
+    이 단계의 완성 버전은 step-03 폴더에 있습니다.
 
 __HTML 업데이트__
 
-이 단계에서는 WebRTC 데이터 채널을 사용 textarea하여 같은 페이지의 두 요소 간에 텍스트를 보냅니다 . 그다지 유용하지는 않지만 WebRTC를 사용하여 스트리밍 비디오와 데이터를 공유하는 방법을 보여줍니다.
+이 단계에서는 WebRTC 데이터 채널을 이용하여 같은 페이지에 있는 두개의 `textarea`요소의 text를 서로 전송합니다.
+그다지 유용하지는 않지만 WebRTC를 사용하여 스트리밍 비디오와 데이터를 공유하는 방법을 볼수 있습니다.
 
-index.html 에서 비디오 및 버튼 요소를 제거하고 다음 HTML로 대체하십시오.
+__index.html__ 에서 비디오 및 버튼 요소를 제거하고 다음 HTML로 대체하십시오.
 
+~~~
 <textarea id="dataChannelSend" disabled
     placeholder="Press Start, enter some text, then press Send."></textarea>
 <textarea id="dataChannelReceive" disabled></textarea>
@@ -22,10 +24,13 @@ index.html 에서 비디오 및 버튼 요소를 제거하고 다음 HTML로 대
   <button id="sendButton">Send</button>
   <button id="closeButton">Stop</button>
 </div>
+~~~
+
 하나의 텍스트 영역은 텍스트를 입력하기위한 것이며 다른 하나는 동료간에 스트리밍 된 텍스트를 표시합니다.
 
-index.html 은 이제 다음과 같아야합니다.
+index.html 은 이제 다음과 같이 변경합니다.
 
+~~~
 <!DOCTYPE html>
 <html>
 
@@ -57,23 +62,25 @@ index.html 은 이제 다음과 같아야합니다.
 </body>
 
 </html>
-자바 스크립트 업데이트
 
-main.js 를 step-03 / js / main.js 의 내용으로 바꿉니다 .
+~~~
+__자바 스크립트 업데이트__
 
-이전 단계에서와 마찬가지로 코드 랩에서 많은 양의 코드로 잘라 붙이기를하는 것은 이상적이지 않지만 (RTCPeerConnection과 마찬가지로) 대안은 없습니다.
+__main.js__ 를 __step-03 / js / main.js__ 의 내용으로 변경합니다 .
 
-피어간에 스트리밍 데이터를 시험해보십시오. index.html을 열고 시작 을 눌러 피어 연결을 설정 textarea하고 왼쪽에 텍스트를 입력 한 다음 보내기 를 클릭 하여 WebRTC 데이터 채널을 사용하여 텍스트를 전송합니다.
+피어간에 스트리밍 데이터를 시험해봅시다. 
+__index.html__ 을 열고 start버튼을 눌러 피어 연결을 설정합니다. 왼쪽에 있는 `textarea`에 텍스트를 입력 한 다음 보내기를 클릭하여,
+WebRTC 데이터 채널을 사용하여 텍스트를 전송합니다.
 
-작동 원리
-이 코드는 RTCPeerConnection과 RTCDataChannel을 사용하여 문자 메시지를 교환합니다.
+__작동 원리__
 
+아래의 코드는 RTCPeerConnection과 RTCDataChannel을 사용하여 문자 메시지를 교환합니다.
 
-이 단계의 많은 코드는 RTCPeerConnection 예제와 동일합니다.
+아래 단계의 많은 코드는 RTCPeerConnection 예제와 동일합니다.
 
+`sendData()`및 `createConnection()`함수에는 새로운 코드가 입력되었습니다 :
 
-sendData()및 createConnection()기능은 새로운 코드의 대부분을 가지고 :
-
+~~~
 function createConnection() {
   dataChannelSend.placeholder = '';
   var servers = null;
@@ -117,34 +124,58 @@ function sendData() {
   sendChannel.send(data);
   trace('Sent Data: ' + data);
 }
-RTCDataChannel의 구문은 WebSocket과 의도적으로 비슷하며 send()메서드 및 message이벤트가 있습니다.
+~~~
 
-의 사용에 유의하십시오 dataConstraint. 데이터 채널은 다양한 유형의 데이터 공유가 가능하도록 구성 할 수 있습니다 (예 : 성능 대비 안정적인 전달의 우선 순위 지정). Mozilla Developer Network 에서 옵션에 대한 자세한 정보를 찾을 수 있습니다 .
+RTCDataChannel의 구문은 WebSocket과 의도적으로 비슷한 구조로 만드렁 졌으며 `send()`메서드 및 `message`이벤트가 있습니다.
 
-세 가지 제약 조건
+`dataConstraint`의 사용방법. 
+데이터 채널은 다양한 유형의 데이터 공유가 가능하도록 구성 할 수 있습니다 (예 : 성능 대비 안정적인 전달의 우선 순위 지정).
+Mozilla Developer Network 에서 옵션에 대한 자세한 정보를 찾을 수 있습니다.
 
-혼란스러워!
+---
+세 가지 종류의 제약 조건
+
+꽤나 복잡합니다!
 
 다른 유형의 WebRTC 통화 설정 옵션은 모두 '제약 조건'이라고도합니다.
 
-제약 조건 및 옵션에 대해 자세히 알아보십시오.
+제약 조건 및 옵션에 대해 자세히 알고 싶다면 아래를 통해 확인해 보세요.
+<ul>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/RTCPeerConnection">RTCPeerConnection</a></li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/createDataChannel">RTCDataChannel</a></li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia">getUserMedia ()</a></li>
+</ul>
+---
 
-RTCPeerConnection
-RTCDataChannel
-getUserMedia ()
-보너스 포인트
-WebRTC 데이터 채널에서 사용하는 프로토콜 인 SCTP를 사용하면 신뢰할 수 있고 순서가 지정된 데이터 전달이 기본적으로 설정됩니다. RTCDataChannel이 안정적인 데이터 전달을 제공해야 할 때와 성능이 더 중요 할 때 (심지어 데이터가 손실 되더라도)?
-CSS를 사용하여 페이지 레이아웃을 개선하고 "dataChannelReceive"텍스트 영역에 자리 표시 자 속성을 추가하십시오.
-모바일 장치에서 페이지를 테스트하십시오.
-배운 내용
-이 단계에서는 다음을 수행하는 방법을 배웠습니다.
+# 보너스 포인트
+<ul>
+    <li>
+    RTCDataChannel이 안정적인 데이터 전달을 제공해야 할 때나 (심지어 데이터가 손실 되더라도) 성능이 더 중요 할 때, 
+    WebRTC 데이터 채널에서 사용하는 프로토콜인 SCTP를 사용하면 신뢰할 수 있고 순서가 지정된 데이터 전달이 기본적으로 설정됩니다.
+    </li>
+    <li>
+CSS를 사용하여 페이지 레이아웃을 개선하고 "dataChannelReceive"텍스트 영역에 placeholder속성을 추가해보세요. 
+    </li>
+    <li>
+모바일 장치에서 페이지를 테스트해보세요.
+    </li>
+</ul>
+    
+__배운 내용__
+이 단계에서는 아래의 방법을 배웠습니다.
+<ul>
+<li>두 WebRTC 피어 간의 연결을 설정합니다.</li>
+<li>동료간에 텍스트 데이터를 교환하십시오.</li>
 
-두 WebRTC 피어 간의 연결을 설정합니다.
-동료간에 텍스트 데이터를 교환하십시오.
-이 단계의 전체 버전은 step-03 폴더에 있습니다.
+<ul>
+이 단계의 전체 버전은 __step-03__ 폴더에 있습니다.
+__더 알아보기__
+<ul>
+    <li><a href="https://www.html5rocks.com/en/tutorials/webrtc/datachannels/">WebRTC 데이터 채널 (최신은 아니지만 , 읽을 가지는 있습니다)</a></li>
+    <li><a href="https://bloggeek.me/sctp-data-channel/">WebRTC의 데이터 채널에 SCTP가 선택된 이유는 무엇일까?</a></li>
+</ul>   
+    
+__다음에서는__
 
-더 찾아 봐
-WebRTC 데이터 채널 (몇 년 된,하지만 여전히 가치가 독서)
-WebRTC의 데이터 채널에 SCTP가 선택된 이유는 무엇입니까?
-다음
-동일한 페이지의 동료간에 데이터를 교환하는 방법을 배웠지 만, 다른 컴퓨터간에이 작업을 어떻게 수행합니까? 먼저 메타 데이터 메시지를 교환하기 위해 신호 채널을 설정해야합니다. 다음 단계에서 어떻게되는지 알아보십시오!
+동일한 페이지의 peer간에 데이터를 교환하는 방법을 배웠지만, 다른 컴퓨터간에이 작업을 어떻게 수행할까요?
+먼저 메타 데이터 메시지를 교환하기 위해 신호 채널을 설정해야합니다. 다음 단계에서 어떻게되는지 알아보십시오!

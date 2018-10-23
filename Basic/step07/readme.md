@@ -161,6 +161,7 @@ socket.on('log', function(array) {
 ~~~
 
 __Node.js에서 실행되도록 Socket.IO 설정__
+
 HTML 파일에서 Socket.IO 파일을 아래와 같이 사용하고있는 것을 보았을 것입니다.
 ~~~
 <script src = "/ socket.io/socket.io.js"> </ script>
@@ -297,6 +298,7 @@ __배운 내용__
 이 단계의 완성 버전은 step-04 폴더에 있습니다.
 
 __심화 학습__
+
 <ul>
 <li><a href="https://github.com/rauchg/chat-example">Socket.io 채팅 예제</a></li>
 <li><a href="https://www.html5rocks.com/en/tutorials/webrtc/infrastructure/">실 생활에서의 WebRTC : STUN, TURN 및 신호 처리</a></li>

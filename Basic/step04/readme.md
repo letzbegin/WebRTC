@@ -3,6 +3,7 @@
 # 4 . 웹캠에서 비디오 스트리밍
 
 __배우게 될 것__
+
   이 단계에서는 다음과 같은 방법을 배웁니다.
   웹캠에서 비디오 스트림을 가져오기.
   스트림 재생을 조작하기.
@@ -12,6 +13,7 @@ __배우게 될 것__
 
 
 __HTML작성...__
+
 work 디렉토리의 index.html 에 video요소와 script요소를 추가합니다 .
 
 ~~~
@@ -31,6 +33,7 @@ work 디렉토리의 index.html 에 video요소와 script요소를 추가합니�
 ~~~
 
 __자바 스크립트 삽입__
+
 js 폴더의 main.js 에 다음을 추가하세요.
 
 ~~~
@@ -73,6 +76,7 @@ navigator.mediaDevices.getUserMedia(mediaStreamConstraints)
 <br>
 
 __작동 원리__
+
 `getUserMedia()`호출 후에 브라우저는 사용자에게 카메라에 액세스 할 수있는 권한을 요청합니다(현재 사용자가 처음으로 카메라 액세스가 요청 한 경우).
 성공하면, `MediaStream` 이 반환되며, `MediaStream` 은 srcObject속성을 통해 미디어 요소를 사용할 수있습니다.
 ~~~
@@ -127,6 +131,7 @@ function gotLocalMediaStream(mediaStream) {
 ~~~
 
 __추가사항__
+
 `localStream`객체에 의해 전달 된 'getUserMedia()'는 전역 변수 이므로 브라우저 콘솔에서 해당 객체 를 검사 할 수 있습니다. 
 콘솔을 열고 stream을 입력 한 다음 Return 키를 누릅니다. 
 Chrome에서 콘솔을 보려면 Mac의 경우 Ctrl-Shift-J 또는 Command-Option-J를 누릅니다.
@@ -163,10 +168,12 @@ video {
   이 단계의 완성버전은 __step-01__ 폴더에 있습니다.
 
 __팁__
+
 하나의 프레임만 사용하는 것이 아니라면 비디오 엘리먼트의 의 `autoplay`애트리뷰트를 잊지 마세요. 
 `getUserMedia()`제약에 대한 더 많은 옵션이 있습니다. webrtc.github.io/samples/src/content/peerconnection/constraints 에서 데모를 보세요.
 
 __우수 사례__
+
 동영상 요소가 컨테이너보다 더 크진 않았는지 확인합니다. 
 동영상의 기본 크기 및 최대 크기를 추가 width및 max-width설정했습니다. 브라우저가 자동으로 높이를 계산합니다.
 ~~~

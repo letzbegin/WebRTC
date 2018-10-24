@@ -136,9 +136,9 @@ __추가사항__
 콘솔을 열고 stream을 입력 한 다음 Return 키를 누릅니다. 
 Chrome에서 콘솔을 보려면 Mac의 경우 Ctrl-Shift-J 또는 Command-Option-J를 누릅니다.
 
-'localStream.getVideoTracks()'의 반환값을 무엇일까요 ?
+'localStream.getVideoTracks()'의 반환값을 무엇일까요 ?  _미디어 데이터객체_
 
-'localStream.getVideoTracks()[0].stop()'을 한번 입렵해보세요.
+'localStream.getVideoTracks()[0].stop()'을 한번 입력해보세요. _화면 송신 중지_
 
 constraints 객체를 살펴보십시오. 객체를 변경할 때 어떻게됩니까 {audio: true, video: true}?
 

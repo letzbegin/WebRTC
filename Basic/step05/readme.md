@@ -187,8 +187,11 @@ localPeerConnection.createOffer(offerOptions)
   .then(createdOffer).catch(setSessionDescriptionError);
   ~~~
 2.반환에 성공하면 Alice는 `setLocalDescription()`을 이용하여 로컬 값을 설정 한 다음이 세션 값을 시그널링 채널을 통해 Bob에게 보냅니다.
+
 3.Bob은 Alice가 보낸 값을 `setRemoteDescription()`이용해 설정합니다 .
+
 4.Bob은 RTCPeerConnection `createAnswer()`메소드를 실행하여 앨리스에서 가져온 원격 설정 값을 전달하여 로컬 세션을 생성 할 수 있습니다. createAnswer()은 RTCSessionDescription 값을 넘겨준다 : Bob은 로컬에 값을 설정하고, 앨리스에게 전송한다.
+
 5.Alice가 Bob의 세션 값을 가져 오면 `setRemoteDescription()`을 이용해 원격 설정값으로 설정합니다 .
 
 ~~~
